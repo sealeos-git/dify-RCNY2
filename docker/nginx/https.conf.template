@@ -1,6 +1,6 @@
 # Please do not directly edit this file. Instead, modify the .env variables related to NGINX configuration.
 
-listen ${NGINX_SSL_PORT} ssl;
+listen ${NGINX_SSL_PORT} ssl default_server;
 ssl_certificate ${SSL_CERTIFICATE_PATH};
 ssl_certificate_key ${SSL_CERTIFICATE_KEY_PATH};
 ssl_protocols ${NGINX_SSL_PROTOCOLS};

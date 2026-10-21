@@ -119,6 +119,7 @@ venv.bak/
 # cli/ has a src/env/ module (DIFY_* registry) — don't treat it as a venv
 !/cli/src/env/
 !/cli/src/commands/env/
+!/cli/src/plugins/env/
 # cli/scripts/lib/ holds TS build helpers (resolve-buildinfo etc.) — don't treat as Python lib/
 !/cli/scripts/lib/
 .conda/
@@ -203,6 +204,12 @@ docker/volumes/iris/*
 docker/nginx/conf.d/default.conf
 docker/nginx/ssl/*
 !docker/nginx/ssl/.gitkeep
+docker/nginx/conf.d-bak/
+docker/nginx/*.bak
+docker/nginx/*.bak-*
+docker/nginx/conf.d/*.bak
+docker/nginx/conf.d/*.bak-*
+docker/nginx/html/
 docker/middleware.env
 docker/docker-compose.override.yaml
 docker/env-backup/*
@@ -270,3 +277,14 @@ web/.vitest-reports/
 # dify-agent-runtime
 dify-agent-runtime/bin/
 dify-agent-runtime/.integration-state
+# 通用备份/临时文件
+*~
+*.orig
+*.rej
+*.bak
+*.bak-*
+
+# 密钥/证书（双保险，防止误放）
+*.pem
+*.key
+!docker/nginx/ssl/.gitkeep

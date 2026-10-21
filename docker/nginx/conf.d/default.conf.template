@@ -1,9 +1,19 @@
 # Please do not directly edit this file. Instead, modify the .env variables related to NGINX configuration.
 
+# --- HTTP 入口：所有请求 301 跳转到 HTTPS ---
 server {
-    listen ${NGINX_PORT};
+    listen ${NGINX_PORT} default_server;
     server_name ${NGINX_SERVER_NAME};
+
+    # 让所有 HTTP 请求自动跳转到 HTTPS
+    return 301 https://$host$request_uri;
+}
+
+# --- HTTPS 入口：完整代理 ---
+server {
     resolver 127.0.0.11 valid=30s ipv6=off;
+
+    ${HTTPS_CONFIG}
 
     location /console/api {
       set $api_upstream api:5001;
@@ -74,10 +84,6 @@ server {
       proxy_pass http://$api_upstream;
       include proxy.conf;
     }
-    
-    # placeholder for acme challenge location
-    ${ACME_CHALLENGE_LOCATION}
 
-    # placeholder for https config defined in https.conf.template
-    ${HTTPS_CONFIG}
+    ${ACME_CHALLENGE_LOCATION}
 }
